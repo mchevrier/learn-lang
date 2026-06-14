@@ -2,7 +2,7 @@
    a line between the coloured dots. Images on the left, words on the right,
    each column shuffled independently. */
 
-import { shuffle, el, winOverlay } from '../ui.js';
+import { shuffle, el, winOverlay, makeStatus } from '../ui.js';
 
 const SVGNS = 'http://www.w3.org/2000/svg';
 
@@ -11,14 +11,10 @@ export function renderLink(mount, ex) {
   let solved = 0;
 
   // --- header ---
-  const fill = el('span');
-  const progress = el('div', { class: 'progress' }, [
-    el('span', { class: 'bar' }, [fill]),
-    el('span', { class: 'count', text: `0/${total}` }),
-  ]);
+  const status = makeStatus(total);
   const head = el('div', { class: 'game-head' }, [
     el('h2', { text: `${ex.emoji || ''} ${ex.title}`.trim() }),
-    progress,
+    status.el,
     el('p', { class: 'instructions', text: 'Drag a line from each picture to the matching word.' }),
   ]);
 
@@ -84,10 +80,11 @@ export function renderLink(mount, ex) {
   window.addEventListener('resize', redrawAll);
 
   function updateProgress() {
-    fill.style.width = `${(solved / total) * 100}%`;
-    progress.querySelector('.count').textContent = `${solved}/${total}`;
+    status.setSolved(solved);
     if (solved === total) {
       setTimeout(() => winOverlay({
+        exerciseId: ex.id,
+        mistakes: status.errors,
         onReplay: () => { mount.innerHTML = ''; renderLink(mount, ex); },
         onHome: () => { location.hash = '#/'; },
       }), 350);
@@ -158,6 +155,7 @@ export function renderLink(mount, ex) {
       solved++;
       updateProgress();
     } else {
+      status.addError();
       for (const dot of [a, b]) {
         dot._card.classList.remove('shake');
         void dot._card.offsetWidth; // restart animation

@@ -1,6 +1,6 @@
 /* Home screen: a grid of exercise cards built from the manifest. */
 
-import { el } from './ui.js';
+import { el, getBestMistakes } from './ui.js';
 
 const TYPE_LABEL = { link: 'Match', boxes: 'Fill in', tape: 'Pairs' };
 
@@ -34,6 +34,10 @@ export function renderHome(mount, exercises) {
       el('div', { class: `badge ${ex.type}`, text: TYPE_LABEL[ex.type] || ex.type }),
       el('div', { class: 'count', text: `${ex.items.length} words` }),
     ]);
+    // "Sans faute" star when the exercise was once completed with zero mistakes
+    if (getBestMistakes(ex.id) === 0) {
+      card.append(el('span', { class: 'perfect', text: '⭐ Sans faute' }));
+    }
     grid.append(card);
   }
   mount.append(grid);

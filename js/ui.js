@@ -42,17 +42,72 @@ export function confetti(count = 90) {
   }
 }
 
+/* ---- per-exercise best score (fewest mistakes), persisted locally ---- */
+const BEST_KEY = (id) => `matilda:best:${id}`;
+
+/** Best (lowest) mistake count ever achieved for an exercise, or null. */
+export function getBestMistakes(id) {
+  try {
+    const v = localStorage.getItem(BEST_KEY(id));
+    return v == null ? null : Number(v);
+  } catch { return null; }
+}
+
+/** Record a finished run; keeps only the best (lowest) mistake count. */
+export function saveResult(id, mistakes) {
+  try {
+    const prev = getBestMistakes(id);
+    if (prev == null || mistakes < prev) localStorage.setItem(BEST_KEY(id), String(mistakes));
+  } catch { /* storage unavailable (private mode) — ignore */ }
+}
+
+/** Live status row for a game: progress bar + solved count + mistake counter. */
+export function makeStatus(total) {
+  const fill = el('span');
+  const countEl = el('span', { class: 'count', text: `0/${total}` });
+  const errEl = el('span', { text: '0' });
+  const errPill = el('span', { class: 'errors-pill', attrs: { title: 'Erreurs' } }, [
+    document.createTextNode('❌ '), errEl,
+  ]);
+  const row = el('div', { class: 'progress' }, [
+    el('span', { class: 'bar' }, [fill]),
+    countEl,
+    errPill,
+  ]);
+  let errors = 0;
+  return {
+    el: row,
+    setSolved(n) { fill.style.width = `${(n / total) * 100}%`; countEl.textContent = `${n}/${total}`; },
+    addError() {
+      errors++;
+      errEl.textContent = String(errors);
+      errPill.classList.remove('bump');
+      void errPill.offsetWidth;
+      errPill.classList.add('bump');
+    },
+    get errors() { return errors; },
+  };
+}
+
 /** Celebration overlay shown when an exercise is finished. */
-export function winOverlay({ onReplay, onHome }) {
-  const cheers = ['Bravo !', 'Super !', 'Génial !', 'Well done!', 'Amazing!'];
+export function winOverlay({ exerciseId, mistakes = 0, onReplay, onHome }) {
+  if (exerciseId != null) saveResult(exerciseId, mistakes);
+  const flawless = mistakes === 0;
+  const cheers = flawless
+    ? ['Sans faute !', 'Parfait !', 'Perfect!']
+    : ['Bravo !', 'Super !', 'Bien joué !'];
   const overlay = el('div', { class: 'win-overlay' });
   const card = el('div', { class: 'win-card' }, [
-    el('div', { class: 'big', text: '🎉' }),
+    el('div', { class: 'big', text: flawless ? '🌟' : '🎉' }),
     el('h2', { text: cheers[Math.floor(Math.random() * cheers.length)] }),
-    el('p', { text: 'You matched them all!' }),
+    el('p', {
+      text: flawless
+        ? 'Aucune erreur — bravo !'
+        : `Terminé avec ${mistakes} erreur${mistakes > 1 ? 's' : ''}.`,
+    }),
     el('div', { class: 'actions' }, [
-      el('button', { class: 'btn', text: '↻ Play again', on: { click: () => { overlay.remove(); onReplay(); } } }),
-      el('button', { class: 'btn secondary', text: '🏠 Exercises', on: { click: () => { overlay.remove(); onHome(); } } }),
+      el('button', { class: 'btn', text: '↻ Rejouer', on: { click: () => { overlay.remove(); onReplay(); } } }),
+      el('button', { class: 'btn secondary', text: '🏠 Exercices', on: { click: () => { overlay.remove(); onHome(); } } }),
     ]),
   ]);
   overlay.append(card);

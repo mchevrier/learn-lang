@@ -2,7 +2,7 @@
    App shell is precached on install; exercises.json and images are cached at
    runtime (stale-while-revalidate) so played exercises keep working offline. */
 
-const VERSION = 'matilda-v5';
+const VERSION = 'matilda-v6';
 const SHELL = [
   './',
   'index.html',

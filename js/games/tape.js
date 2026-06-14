@@ -3,21 +3,17 @@
    word onto its matching picture (or a picture onto its word) and they snap
    together into a taped pair: picture on top, word underneath. */
 
-import { shuffle, el, winOverlay } from '../ui.js';
+import { shuffle, el, winOverlay, makeStatus } from '../ui.js';
 
 export function renderTape(mount, ex) {
   const total = ex.items.length;
   let solved = 0;
   let topZ = 10;
 
-  const fill = el('span');
-  const progress = el('div', { class: 'progress' }, [
-    el('span', { class: 'bar' }, [fill]),
-    el('span', { class: 'count', text: `0/${total}` }),
-  ]);
+  const status = makeStatus(total);
   const head = el('div', { class: 'game-head' }, [
     el('h2', { text: `${ex.emoji || ''} ${ex.title}`.trim() }),
-    progress,
+    status.el,
     el('p', { class: 'instructions', text: 'Drag each picture and its word onto each other to tape them together.' }),
   ]);
 
@@ -27,10 +23,11 @@ export function renderTape(mount, ex) {
   const wordToImg = new Map(ex.items.map((i) => [i.word, i.image]));
 
   function updateProgress() {
-    fill.style.width = `${(solved / total) * 100}%`;
-    progress.querySelector('.count').textContent = `${solved}/${total}`;
+    status.setSolved(solved);
     if (solved === total) {
       setTimeout(() => winOverlay({
+        exerciseId: ex.id,
+        mistakes: status.errors,
         onReplay: () => { mount.innerHTML = ''; renderTape(mount, ex); },
         onHome: () => { location.hash = '#/'; },
       }), 400);
@@ -119,6 +116,7 @@ export function renderTape(mount, ex) {
           formPair(t, target);
         } else if (target && target !== t && target.dataset.kind !== t.dataset.kind) {
           // touched the wrong partner: little shake, stays where dropped
+          status.addError();
           t.classList.remove('shake');
           void t.offsetWidth;
           t.classList.add('shake');

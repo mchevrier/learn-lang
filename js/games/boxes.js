@@ -2,21 +2,17 @@
    underneath, and a shuffled word bank at the bottom. Drag the right word into
    each box. Wrong words gently bounce back; correct ones lock in green. */
 
-import { shuffle, el, winOverlay } from '../ui.js';
+import { shuffle, el, winOverlay, makeStatus } from '../ui.js';
 import { makeDraggable } from '../drag.js';
 
 export function renderBoxes(mount, ex) {
   const total = ex.items.length;
   let solved = 0;
 
-  const fill = el('span');
-  const progress = el('div', { class: 'progress' }, [
-    el('span', { class: 'bar' }, [fill]),
-    el('span', { class: 'count', text: `0/${total}` }),
-  ]);
+  const status = makeStatus(total);
   const head = el('div', { class: 'game-head' }, [
     el('h2', { text: `${ex.emoji || ''} ${ex.title}`.trim() }),
-    progress,
+    status.el,
     el('p', { class: 'instructions', text: 'Drag each word into the box under the right picture.' }),
   ]);
 
@@ -36,10 +32,11 @@ export function renderBoxes(mount, ex) {
   mount.append(head, grid, bank);
 
   function updateProgress() {
-    fill.style.width = `${(solved / total) * 100}%`;
-    progress.querySelector('.count').textContent = `${solved}/${total}`;
+    status.setSolved(solved);
     if (solved === total) {
       setTimeout(() => winOverlay({
+        exerciseId: ex.id,
+        mistakes: status.errors,
         onReplay: () => { mount.innerHTML = ''; renderBoxes(mount, ex); },
         onHome: () => { location.hash = '#/'; },
       }), 350);
@@ -67,6 +64,7 @@ export function renderBoxes(mount, ex) {
     } else {
       // wrong: flash the box red and shake the chip in place, then settle —
       // the chip stays exactly where it was in the bank.
+      status.addError();
       target.classList.add('wrong');
       chip.classList.remove('shake');
       void chip.offsetWidth;
