@@ -1,22 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#e2231a"/>
-      <stop offset="1" stop-color="#b3160f"/>
+      <stop offset="0" stop-color="#bd393b"/>
+      <stop offset="1" stop-color="#9c2e30"/>
     </linearGradient>
-    <clipPath id="uj"><rect x="316" y="356" width="150" height="90" rx="8"/></clipPath>
+    <clipPath id="sq"><rect x="126" y="126" width="260" height="260" rx="10"/></clipPath>
   </defs>
   <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
-  <text x="256" y="250" font-family="'Baloo 2','Quicksand',Arial,sans-serif" font-size="300"
-        font-weight="800" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">M</text>
-  <!-- small Union Jack badge -->
-  <g clip-path="url(#uj)">
-    <rect x="316" y="356" width="150" height="90" fill="#00247d"/>
-    <path d="M316,356 466,446 M466,356 316,446" stroke="#fff" stroke-width="18"/>
-    <path d="M316,356 466,446 M466,356 316,446" stroke="#cf142b" stroke-width="8"/>
-    <rect x="376" y="356" width="30" height="90" fill="#fff"/>
-    <rect x="316" y="386" width="150" height="30" fill="#fff"/>
-    <rect x="382" y="356" width="18" height="90" fill="#cf142b"/>
-    <rect x="316" y="392" width="150" height="18" fill="#cf142b"/>
+  <!-- white-framed flag tile (matches the Matilda logo) -->
+  <rect x="110" y="110" width="292" height="292" rx="22" fill="#ffffff"/>
+  <g clip-path="url(#sq)">
+    <rect x="126" y="126" width="260" height="260" fill="#264a8c"/>
+    <path d="M126,126 386,386 M386,126 126,386" stroke="#ffffff" stroke-width="46"/>
+    <path d="M126,126 386,386 M386,126 126,386" stroke="#bd393b" stroke-width="18"/>
+    <rect x="227" y="126" width="58" height="260" fill="#ffffff"/>
+    <rect x="126" y="227" width="260" height="58" fill="#ffffff"/>
+    <rect x="240" y="126" width="32" height="260" fill="#bd393b"/>
+    <rect x="126" y="240" width="260" height="32" fill="#bd393b"/>
   </g>
 </svg>

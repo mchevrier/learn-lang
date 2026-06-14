@@ -6,6 +6,7 @@ const VERSION = 'matilda-v1';
 const SHELL = [
   './',
   'index.html',
+  'logo.png',
   'css/styles.css',
   'js/app.js',
   'js/home.js',

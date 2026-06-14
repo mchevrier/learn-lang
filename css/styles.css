@@ -4,10 +4,10 @@
    ========================================================================= */
 
 :root {
-  --red: #e2231a;
-  --red-dark: #b3160f;
-  --navy: #00247d;
-  --navy-light: #2c4ba8;
+  --red: #bd393b;
+  --red-dark: #9c2e30;
+  --navy: #264a8c;
+  --navy-light: #3a64b0;
   --gold: #ffcf33;
   --white: #ffffff;
 
@@ -60,23 +60,8 @@ body {
   box-shadow: 0 4px 14px rgba(80, 30, 20, 0.18);
 }
 
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
-
-.brand-mark {
-  width: 46px;
-  height: 36px;
-  border-radius: 7px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,.3);
-  border: 2px solid #fff;
-  flex: 0 0 auto;
-  transform: rotate(-3deg);
-}
-.brand-mark svg { display: block; width: 100%; height: 100%; }
-
-.brand-text { display: flex; flex-direction: column; line-height: 1.05; }
-.brand-name { font-weight: 800; font-size: clamp(20px, 5vw, 26px); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
-.brand-tag { font-weight: 700; font-size: clamp(11px, 3vw, 13px); color: var(--gold); }
+.brand { display: flex; align-items: center; text-decoration: none; color: inherit; }
+.brand-logo { height: clamp(42px, 9vw, 56px); width: auto; display: block; }
 
 .back-btn {
   margin-left: auto;
@@ -130,13 +115,13 @@ body {
   position: relative;
   overflow: hidden;
 }
-/* Union-Jack tricolour stripe on top */
+/* brand stripe on top (red → navy, no flag) */
 .exercise-card::before {
   content: "";
   position: absolute;
   inset: 0 0 auto 0;
   height: 9px;
-  background: linear-gradient(90deg, var(--red) 0 38%, var(--white) 38% 62%, var(--navy) 62% 100%);
+  background: linear-gradient(90deg, var(--red), var(--navy));
 }
 .exercise-card:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: var(--shadow-lg); }
 .exercise-card:active { transform: translateY(-1px) scale(.98); }

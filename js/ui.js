@@ -24,7 +24,7 @@ export function el(tag, opts = {}, children = []) {
 
 /** Burst of falling confetti. */
 export function confetti(count = 90) {
-  const colors = ['#e2231a', '#00247d', '#ffcf33', '#cf142b', '#2c4ba8'];
+  const colors = ['#bd393b', '#264a8c', '#ffcf33', '#9c2e30', '#3a64b0'];
   for (let i = 0; i < count; i++) {
     const c = document.createElement('div');
     c.className = 'confetti';
