@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-06-14T14:11:34.277Z",
+  "exercises": [
+    {
+      "id": "animals",
+      "title": "Animals",
+      "type": "link",
+      "items": [
+        {
+          "word": "fox",
+          "image": "exercises/animals/fox.svg"
+        },
+        {
+          "word": "frog",
+          "image": "exercises/animals/frog.svg"
+        },
+        {
+          "word": "gorilla",
+          "image": "exercises/animals/gorilla.svg"
+        },
+        {
+          "word": "owl",
+          "image": "exercises/animals/owl.svg"
+        },
+        {
+          "word": "snake",
+          "image": "exercises/animals/snake.svg"
+        },
+        {
+          "word": "wolf",
+          "image": "exercises/animals/wolf.svg"
+        }
+      ],
+      "emoji": "🦍"
+    },
+    {
+      "id": "vegetables",
+      "title": "Vegetables",
+      "type": "boxes",
+      "items": [
+        {
+          "word": "broccoli",
+          "image": "exercises/vegetables/broccoli.svg"
+        },
+        {
+          "word": "carrot",
+          "image": "exercises/vegetables/carrot.svg"
+        },
+        {
+          "word": "corn",
+          "image": "exercises/vegetables/corn.svg"
+        },
+        {
+          "word": "onion",
+          "image": "exercises/vegetables/onion.svg"
+        },
+        {
+          "word": "potato",
+          "image": "exercises/vegetables/potato.svg"
+        },
+        {
+          "word": "tomato",
+          "image": "exercises/vegetables/tomato.svg"
+        }
+      ],
+      "emoji": "🥕",
+      "extraWords": [
+        "cabbage",
+        "pepper"
+      ]
+    }
+  ]
+}

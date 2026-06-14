@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <title>Matilda — English 4 fun!</title>
+  <meta name="description" content="Fun word & image matching games to learn English." />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#2bb673" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Matilda" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@600;700&display=swap" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="#/" aria-label="Home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-text">
+        <span class="brand-name">Matilda</span>
+        <span class="brand-tag">English&nbsp;4&nbsp;fun!</span>
+      </span>
+    </a>
+    <button id="back-btn" class="back-btn" hidden>← Exercises</button>
+  </header>
+
+  <main id="app" class="app">
+    <!-- views are rendered here by js/app.js -->
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
