@@ -4,6 +4,7 @@ import { renderHome } from './home.js';
 import { renderLink } from './games/link.js';
 import { renderBoxes } from './games/boxes.js';
 import { renderTape } from './games/tape.js';
+import { renderDialogue } from './games/dialogue.js';
 import { el } from './ui.js';
 
 const appEl = document.getElementById('app');
@@ -53,6 +54,7 @@ async function route() {
     appEl.append(mount);
     if (ex.type === 'boxes') renderBoxes(mount, ex);
     else if (ex.type === 'tape') renderTape(mount, ex);
+    else if (ex.type === 'dialogue') renderDialogue(mount, ex);
     else renderLink(mount, ex);
     return;
   }

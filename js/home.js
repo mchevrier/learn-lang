@@ -2,7 +2,7 @@
 
 import { el, getBestMistakes } from './ui.js';
 
-const TYPE_LABEL = { link: 'Match', boxes: 'Fill in', tape: 'Pairs' };
+const TYPE_LABEL = { link: 'Match', boxes: 'Fill in', tape: 'Pairs', dialogue: 'Talk' };
 
 function exerciseCard(ex) {
   const card = el('button', {
@@ -13,7 +13,7 @@ function exerciseCard(ex) {
     el('div', { class: 'emoji', text: ex.emoji || '📚' }),
     el('div', { class: 'title', text: ex.title }),
     el('div', { class: `badge ${ex.type}`, text: TYPE_LABEL[ex.type] || ex.type }),
-    el('div', { class: 'count', text: `${ex.items.length} words` }),
+    el('div', { class: 'count', text: ex.lines ? `${ex.lines.length} lines` : `${ex.items.length} words` }),
   ]);
 
   // status pictogram: not done yet / done with N mistakes / flawless medal

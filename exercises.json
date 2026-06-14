@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T17:30:17.587Z",
+  "generatedAt": "2026-06-14T17:37:41.433Z",
   "ateliers": [
     {
       "id": "atelier-1",
@@ -49,43 +49,39 @@
         },
         {
           "id": "atelier-1/greetings",
-          "title": "Greetings",
-          "type": "link",
-          "items": [
+          "title": "Saying hello",
+          "type": "dialogue",
+          "speakers": {
+            "a": "🧒",
+            "b": "🧑"
+          },
+          "lines": [
             {
-              "word": "good night",
-              "image": "exercises/atelier-1/greetings/good night.svg"
+              "who": "a",
+              "text": "Hello!"
             },
             {
-              "word": "goodbye",
-              "image": "exercises/atelier-1/greetings/goodbye.svg"
+              "who": "b",
+              "text": "Hi! How are you?"
             },
             {
-              "word": "hello",
-              "image": "exercises/atelier-1/greetings/hello.svg"
+              "who": "a",
+              "text": "I am fine, thank you. How about you?"
             },
             {
-              "word": "no",
-              "image": "exercises/atelier-1/greetings/no.svg"
+              "who": "b",
+              "text": "Very well, thank you!"
             },
             {
-              "word": "please",
-              "image": "exercises/atelier-1/greetings/please.svg"
+              "who": "a",
+              "text": "Goodbye!"
             },
             {
-              "word": "sorry",
-              "image": "exercises/atelier-1/greetings/sorry.svg"
-            },
-            {
-              "word": "thank you",
-              "image": "exercises/atelier-1/greetings/thank you.svg"
-            },
-            {
-              "word": "yes",
-              "image": "exercises/atelier-1/greetings/yes.svg"
+              "who": "b",
+              "text": "Bye! Have a nice day!"
             }
           ],
-          "emoji": "👋"
+          "emoji": "💬"
         }
       ]
     },

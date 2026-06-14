@@ -153,6 +153,7 @@ body {
 }
 .exercise-card .badge.boxes { background: var(--navy); }
 .exercise-card .badge.tape { background: var(--navy-light); }
+.exercise-card .badge.dialogue { background: var(--green-dark, #1f9760); background: #2bb673; }
 .exercise-card .count { font-size: 13px; color: var(--ink-soft); font-weight: 700; }
 .exercise-card .status {
   position: absolute;
@@ -399,6 +400,44 @@ body {
   70% { transform: rotate(0deg) scale(1.08); }
   100% { transform: rotate(0deg) scale(1); }
 }
+
+/* ---------- DIALOGUE game (rebuild a conversation in order) ---------- */
+.dialogue { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+.talk-row { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 10px; }
+.step {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--navy); color: #fff; font-weight: 800; font-size: 13px;
+  display: grid; place-items: center;
+}
+.talk-content { display: flex; align-items: flex-end; gap: 10px; }
+.talk-content.left { justify-content: flex-start; }
+.talk-content.right { justify-content: flex-end; }
+.avatar { font-size: 40px; line-height: 1; flex: 0 0 auto; filter: drop-shadow(0 2px 3px rgba(0,0,0,.15)); }
+
+.bubble-slot {
+  position: relative;
+  min-width: 110px; max-width: min(76%, 470px);
+  min-height: 50px;
+  border: 3px dashed #cbb98e;
+  border-radius: 16px;
+  background: rgba(255,255,255,.55);
+  display: flex; align-items: center; justify-content: center;
+  padding: 6px;
+  transition: background .15s ease, border-color .15s ease, transform .1s ease;
+}
+.bubble-slot.hover { border-color: var(--navy); background: #eef2fb; transform: scale(1.03); }
+.bubble-slot.correct { border-style: solid; border-color: var(--ok); background: #e9f9f0; }
+.bubble-slot.wrong { border-style: solid; border-color: var(--bad); background: #fdeceb; }
+
+/* dialogue chips hold whole sentences, so let them wrap */
+.dialogue-bank .chip,
+.bubble-slot .chip {
+  white-space: normal;
+  max-width: 300px;
+  text-align: center;
+  line-height: 1.2;
+}
+.bubble-slot.correct .chip { border-color: var(--ok); background: linear-gradient(180deg,#fff,#e9f9f0); cursor: default; }
 
 /* floating drag clone */
 .drag-clone {

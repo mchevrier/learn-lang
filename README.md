@@ -10,6 +10,7 @@ Two game types, chosen per exercise:
 | `link`  | Drag a line from each **picture** to its **word** (two columns).           |
 | `boxes` | Drag each **word** into the box under the **right picture**.               |
 | `tape`  | All cards are scattered; drag a **picture and its word together** to tape them into a pair. |
+| `dialogue` | Rebuild a **conversation in order**: drag each line into the right speech bubble (no images — a script in `game.json`). |
 
 The home screen is organised into **workshops** ("ateliers"); each workshop holds
 one or more exercises. Tap a card to play. Works with **touch** (tablets/phones)
@@ -61,6 +62,27 @@ exercises/
 4. To add a **new workshop**, just create `exercises/atelier-N/` with an
    `atelier.json` and one or more exercise sub-folders.
 5. Commit & push. **That's it** — GitHub Actions rebuilds the index and redeploys.
+
+### Dialogue exercises (no images)
+
+A `dialogue` exercise needs only a `game.json` (no image files) describing the
+conversation:
+
+```json
+{
+  "title": "Saying hello",
+  "type": "dialogue",
+  "emoji": "💬",
+  "speakers": { "a": "🧒", "b": "🧑" },
+  "lines": [
+    { "who": "a", "text": "Hello!" },
+    { "who": "b", "text": "Hi! How are you?" },
+    { "who": "a", "text": "I am fine, thank you. How about you?" }
+  ]
+}
+```
+`speakers.a` / `speakers.b` are the two characters' avatars (emoji); each line's
+`who` says which one speaks it.
 
 > The sample workshops use simple SVG emoji cards so the app works out of the box.
 > Replace any file with a real photo whenever you like — just keep the filename

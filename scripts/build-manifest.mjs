@@ -26,7 +26,7 @@ const EXERCISES_DIR = join(ROOT, 'exercises');
 const OUTPUT = join(ROOT, 'exercises.json');
 
 const IMAGE_EXT = new Set(['.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif']);
-const VALID_TYPES = new Set(['link', 'boxes', 'tape']);
+const VALID_TYPES = new Set(['link', 'boxes', 'tape', 'dialogue']);
 
 /** Turn a filename into the word to guess: "red-panda.jpg" -> "red panda". */
 function wordFromFilename(file) {
@@ -58,8 +58,26 @@ function buildExercise(atelierId, exId, folder) {
 
   const type = (cfg.type || 'link').toLowerCase();
   if (!VALID_TYPES.has(type)) {
-    console.warn(`  ⚠  skipping "${atelierId}/${exId}" — unknown type "${cfg.type}" (use "link", "boxes" or "tape")`);
+    console.warn(`  ⚠  skipping "${atelierId}/${exId}" — unknown type "${cfg.type}" (use "link", "boxes", "tape" or "dialogue")`);
     return null;
+  }
+
+  // "dialogue" is script-based (no images): read the conversation from game.json
+  if (type === 'dialogue') {
+    const lines = Array.isArray(cfg.lines) ? cfg.lines.filter((l) => l && l.text) : [];
+    if (lines.length === 0) {
+      console.warn(`  ⚠  skipping "${atelierId}/${exId}" — dialogue has no lines`);
+      return null;
+    }
+    const exercise = {
+      id: `${atelierId}/${exId}`,
+      title: cfg.title || exId,
+      type,
+      speakers: cfg.speakers && typeof cfg.speakers === 'object' ? cfg.speakers : { a: '🙂', b: '🙃' },
+      lines: lines.map((l) => ({ who: l.who === 'b' ? 'b' : 'a', text: String(l.text) })),
+    };
+    if (cfg.emoji) exercise.emoji = cfg.emoji;
+    return exercise;
   }
 
   const items = readdirSync(folder)
@@ -87,7 +105,8 @@ function buildAtelier(id, folder) {
     const ex = buildExercise(id, exId, join(folder, exId));
     if (ex) {
       exercises.push(ex);
-      console.log(`  ✓ ${id}/${exId} (${ex.type}, ${ex.items.length} items)`);
+      const n = ex.items ? `${ex.items.length} items` : `${ex.lines.length} lines`;
+      console.log(`  ✓ ${id}/${exId} (${ex.type}, ${n})`);
     }
   }
   if (exercises.length === 0) {

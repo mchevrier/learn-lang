@@ -1,5 +1,35 @@
 {
-  "title": "Greetings",
-  "type": "link",
-  "emoji": "👋"
+  "title": "Saying hello",
+  "type": "dialogue",
+  "emoji": "💬",
+  "speakers": {
+    "a": "🧒",
+    "b": "🧑"
+  },
+  "lines": [
+    {
+      "who": "a",
+      "text": "Hello!"
+    },
+    {
+      "who": "b",
+      "text": "Hi! How are you?"
+    },
+    {
+      "who": "a",
+      "text": "I am fine, thank you. How about you?"
+    },
+    {
+      "who": "b",
+      "text": "Very well, thank you!"
+    },
+    {
+      "who": "a",
+      "text": "Goodbye!"
+    },
+    {
+      "who": "b",
+      "text": "Bye! Have a nice day!"
+    }
+  ]
 }

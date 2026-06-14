@@ -56,16 +56,20 @@ const ATELIERS = [
         items: { mother: '👩', father: '👨', sister: '👧', brother: '👦', grandmother: '👵', grandfather: '👴', baby: '👶', grandparents: '👵👴' },
       },
       greetings: {
-        game: { title: 'Greetings', type: 'link', emoji: '👋' },
-        items: {
-          hello: '👋',
-          goodbye: '🚶',
-          please: '🥺',
-          'thank you': '🙏',
-          sorry: '😔',
-          yes: '👍',
-          no: '👎',
-          'good night': '🌙',
+        // a "dialogue" exercise has no images — just a scripted conversation
+        game: {
+          title: 'Saying hello',
+          type: 'dialogue',
+          emoji: '💬',
+          speakers: { a: '🧒', b: '🧑' },
+          lines: [
+            { who: 'a', text: 'Hello!' },
+            { who: 'b', text: 'Hi! How are you?' },
+            { who: 'a', text: 'I am fine, thank you. How about you?' },
+            { who: 'b', text: 'Very well, thank you!' },
+            { who: 'a', text: 'Goodbye!' },
+            { who: 'b', text: 'Bye! Have a nice day!' },
+          ],
         },
       },
     },
@@ -109,10 +113,14 @@ for (const atelier of ATELIERS) {
     const dir = join(adir, exId);
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'game.json'), JSON.stringify(def.game, null, 2) + '\n');
-    for (const [word, emoji] of Object.entries(def.items)) {
-      writeFileSync(join(dir, `${word}.svg`), card(emoji, n++));
+    if (def.items) {
+      for (const [word, emoji] of Object.entries(def.items)) {
+        writeFileSync(join(dir, `${word}.svg`), card(emoji, n++));
+      }
+      console.log(`✓ ${atelier.id}/${exId}: ${Object.keys(def.items).length} images`);
+    } else {
+      console.log(`✓ ${atelier.id}/${exId}: game.json only (no images)`);
     }
-    console.log(`✓ ${atelier.id}/${exId}: ${Object.keys(def.items).length} images`);
   }
 }
 console.log('Sample workshops generated.');
