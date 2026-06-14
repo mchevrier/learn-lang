@@ -1,9 +1,5 @@
 {
   "title": "Vegetables",
   "type": "boxes",
-  "emoji": "🥕",
-  "extraWords": [
-    "cabbage",
-    "pepper"
-  ]
+  "emoji": "🥕"
 }

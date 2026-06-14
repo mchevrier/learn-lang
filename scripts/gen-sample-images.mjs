@@ -61,7 +61,6 @@ const EXERCISES = {
       title: 'Vegetables',
       type: 'boxes',
       emoji: '🥕',
-      extraWords: ['cabbage', 'pepper'],
     },
     items: {
       carrot: '🥕',

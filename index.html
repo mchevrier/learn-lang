@@ -8,7 +8,7 @@
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#2bb673" />
+  <meta name="theme-color" content="#e2231a" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -23,7 +23,22 @@
 <body>
   <header class="app-header">
     <a class="brand" href="#/" aria-label="Home">
-      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="uj"><rect width="60" height="36"/></clipPath></defs>
+          <g clip-path="url(#uj)">
+            <rect width="60" height="36" fill="#00247d"/>
+            <g stroke-linecap="butt">
+              <path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="8"/>
+              <path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3.5"/>
+            </g>
+            <rect x="24" width="12" height="36" fill="#fff"/>
+            <rect y="12" width="60" height="12" fill="#fff"/>
+            <rect x="26" width="8" height="36" fill="#cf142b"/>
+            <rect y="14" width="60" height="8" fill="#cf142b"/>
+          </g>
+        </svg>
+      </span>
       <span class="brand-text">
         <span class="brand-name">Matilda</span>
         <span class="brand-tag">English&nbsp;4&nbsp;fun!</span>
