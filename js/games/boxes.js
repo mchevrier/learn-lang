@@ -46,18 +46,14 @@ export function renderBoxes(mount, ex) {
     }
   }
 
-  function placeInBank(chip) {
-    chip.dataset.locked = 'false';
-    bank.append(chip);
-  }
-
+  // The drag helper hides the chip in place during a drag and restores it
+  // before this runs, so on a wrong/cancelled/bank drop the chip is still in
+  // its original slot — we simply leave it there (no reordering of the bank).
   function handleDrop(target, chip) {
-    if (!target || target.classList.contains('word-bank')) {
-      placeInBank(chip);
+    // dropped on the bank, outside any box, or on an already-filled box
+    if (!target || target.classList.contains('word-bank') || target.dataset.locked === 'true') {
       return;
     }
-    // target is a .drop-box
-    if (target.dataset.locked === 'true') { placeInBank(chip); return; }
 
     const correct = target.dataset.word === chip.dataset.word;
     if (correct) {
@@ -69,7 +65,8 @@ export function renderBoxes(mount, ex) {
       solved++;
       updateProgress();
     } else {
-      // wrong: flash red, shake, bounce back to the bank
+      // wrong: flash the box red and shake the chip in place, then settle —
+      // the chip stays exactly where it was in the bank.
       target.classList.add('wrong');
       chip.classList.remove('shake');
       void chip.offsetWidth;
@@ -77,7 +74,6 @@ export function renderBoxes(mount, ex) {
       setTimeout(() => {
         target.classList.remove('wrong');
         chip.classList.remove('shake');
-        placeInBank(chip);
       }, 500);
     }
   }
