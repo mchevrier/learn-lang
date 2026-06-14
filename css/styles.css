@@ -52,7 +52,7 @@ body {
   gap: 14px;
   padding: 10px clamp(14px, 4vw, 32px);
   padding-top: max(10px, env(safe-area-inset-top));
-  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  background: var(--red);
   border-bottom: 4px solid var(--navy);
   position: sticky;
   top: 0;
