@@ -24,9 +24,13 @@ function showMessage(html) {
   appEl.append(el('div', { class: 'message', html }));
 }
 
+/** Flatten all exercises across ateliers into one array (ids contain a "/"). */
+function allExercises(data) {
+  return (data.ateliers || []).flatMap((a) => a.exercises);
+}
+
 async function route() {
-  const hash = location.hash.replace(/^#\/?/, ''); // "", "exercise/animals"
-  const [section, id] = hash.split('/');
+  const hash = location.hash.replace(/^#\/?/, ''); // "", "exercise/atelier-1/family"
 
   let data;
   try {
@@ -38,8 +42,10 @@ async function route() {
 
   window.scrollTo(0, 0);
 
-  if (section === 'exercise' && id) {
-    const ex = data.exercises.find((e) => e.id === id);
+  // Exercise id may contain slashes, so take everything after "exercise/".
+  if (hash.startsWith('exercise/')) {
+    const id = hash.slice('exercise/'.length);
+    const ex = allExercises(data).find((e) => e.id === id);
     if (!ex) { location.hash = '#/'; return; }
     backBtn.hidden = false;
     appEl.innerHTML = '';
@@ -54,7 +60,7 @@ async function route() {
   // Home
   backBtn.hidden = true;
   appEl.innerHTML = '';
-  renderHome(appEl, data.exercises);
+  renderHome(appEl, data.ateliers || []);
 }
 
 backBtn.addEventListener('click', () => { location.hash = '#/'; });

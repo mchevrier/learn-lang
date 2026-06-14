@@ -2,14 +2,15 @@
 /**
  * build-manifest.mjs
  * ------------------
- * Scans the /exercises folder and produces /exercises.json — the index the
- * static app reads at runtime (GitHub Pages can't list folders by itself).
+ * Scans /exercises and produces /exercises.json — the index the static app
+ * reads at runtime (GitHub Pages can't list folders by itself).
  *
- * For each subfolder of /exercises:
- *   - reads game.json   -> { title, type, emoji?, extraWords? }
- *   - lists image files -> each becomes an item whose `word` is derived
- *                          from the filename.
+ * Two-level layout:
+ *   exercises/<atelier>/atelier.json          -> { title, tagline, order? }
+ *   exercises/<atelier>/<exercise>/game.json  -> { title, type, emoji?, extraWords? }
+ *   exercises/<atelier>/<exercise>/<word>.<img>
  *
+ * Each image filename becomes the word to guess ("red-panda.jpg" -> "red panda").
  * No npm dependencies — just Node's built-in fs/path.
  *
  * Run with:  npm run build   (or  node scripts/build-manifest.mjs)
@@ -29,58 +30,49 @@ const VALID_TYPES = new Set(['link', 'boxes', 'tape']);
 
 /** Turn a filename into the word to guess: "red-panda.jpg" -> "red panda". */
 function wordFromFilename(file) {
-  return basename(file, extname(file))
-    .replace(/[-_]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return basename(file, extname(file)).replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function isDir(p) {
   try { return statSync(p).isDirectory(); } catch { return false; }
 }
 
-function readGameConfig(folder) {
-  const cfgPath = join(folder, 'game.json');
-  try {
-    return JSON.parse(readFileSync(cfgPath, 'utf8'));
-  } catch (err) {
+function readJson(file) {
+  try { return JSON.parse(readFileSync(file, 'utf8')); }
+  catch (err) {
     if (err.code === 'ENOENT') return null;
-    throw new Error(`Invalid game.json in ${folder}: ${err.message}`);
+    throw new Error(`Invalid JSON in ${file}: ${err.message}`);
   }
 }
 
-function buildExercise(id, folder) {
-  const cfg = readGameConfig(folder);
-  if (!cfg) {
-    console.warn(`  ⚠  skipping "${id}" — no game.json found`);
-    return null;
-  }
+function subDirs(dir) {
+  return readdirSync(dir)
+    .filter((name) => !name.startsWith('.'))
+    .filter((name) => isDir(join(dir, name)))
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function buildExercise(atelierId, exId, folder) {
+  const cfg = readJson(join(folder, 'game.json'));
+  if (!cfg) return null; // not an exercise (no game.json)
 
   const type = (cfg.type || 'link').toLowerCase();
   if (!VALID_TYPES.has(type)) {
-    console.warn(`  ⚠  skipping "${id}" — unknown type "${cfg.type}" (use "link", "boxes" or "tape")`);
+    console.warn(`  ⚠  skipping "${atelierId}/${exId}" — unknown type "${cfg.type}" (use "link", "boxes" or "tape")`);
     return null;
   }
 
   const items = readdirSync(folder)
     .filter((f) => IMAGE_EXT.has(extname(f).toLowerCase()))
     .sort((a, b) => a.localeCompare(b))
-    .map((f) => ({
-      word: wordFromFilename(f),
-      image: `exercises/${id}/${f}`,
-    }));
+    .map((f) => ({ word: wordFromFilename(f), image: `exercises/${atelierId}/${exId}/${f}` }));
 
   if (items.length === 0) {
-    console.warn(`  ⚠  skipping "${id}" — no images found`);
+    console.warn(`  ⚠  skipping "${atelierId}/${exId}" — no images found`);
     return null;
   }
 
-  const exercise = {
-    id,
-    title: cfg.title || id,
-    type,
-    items,
-  };
+  const exercise = { id: `${atelierId}/${exId}`, title: cfg.title || exId, type, items };
   if (cfg.emoji) exercise.emoji = cfg.emoji;
   if (Array.isArray(cfg.extraWords) && cfg.extraWords.length) {
     exercise.extraWords = cfg.extraWords.map((w) => String(w).trim()).filter(Boolean);
@@ -88,31 +80,48 @@ function buildExercise(id, folder) {
   return exercise;
 }
 
+function buildAtelier(id, folder) {
+  const info = readJson(join(folder, 'atelier.json')) || {};
+  const exercises = [];
+  for (const exId of subDirs(folder)) {
+    const ex = buildExercise(id, exId, join(folder, exId));
+    if (ex) {
+      exercises.push(ex);
+      console.log(`  ✓ ${id}/${exId} (${ex.type}, ${ex.items.length} items)`);
+    }
+  }
+  if (exercises.length === 0) {
+    console.warn(`  ⚠  skipping atelier "${id}" — no exercises inside`);
+    return null;
+  }
+  return {
+    id,
+    title: info.title || id,
+    tagline: info.tagline || '',
+    order: typeof info.order === 'number' ? info.order : Number.POSITIVE_INFINITY,
+    exercises,
+  };
+}
+
 function main() {
   if (!isDir(EXERCISES_DIR)) {
     console.error(`No "exercises" folder found at ${EXERCISES_DIR}`);
-    writeFileSync(OUTPUT, JSON.stringify({ exercises: [] }, null, 2));
+    writeFileSync(OUTPUT, JSON.stringify({ ateliers: [] }, null, 2));
     return;
   }
 
   console.log('Building exercises.json …');
-  const folders = readdirSync(EXERCISES_DIR)
-    .filter((name) => !name.startsWith('.'))
-    .filter((name) => isDir(join(EXERCISES_DIR, name)))
-    .sort((a, b) => a.localeCompare(b));
-
-  const exercises = [];
-  for (const id of folders) {
-    const ex = buildExercise(id, join(EXERCISES_DIR, id));
-    if (ex) {
-      exercises.push(ex);
-      console.log(`  ✓ ${id} (${ex.type}, ${ex.items.length} items)`);
-    }
+  const ateliers = [];
+  for (const id of subDirs(EXERCISES_DIR)) {
+    const a = buildAtelier(id, join(EXERCISES_DIR, id));
+    if (a) ateliers.push(a);
   }
+  ateliers.sort((a, b) => (a.order - b.order) || a.id.localeCompare(b.id));
 
-  const manifest = { generatedAt: new Date().toISOString(), exercises };
+  const manifest = { generatedAt: new Date().toISOString(), ateliers };
   writeFileSync(OUTPUT, JSON.stringify(manifest, null, 2) + '\n');
-  console.log(`Done — ${exercises.length} exercise(s) written to exercises.json`);
+  const exCount = ateliers.reduce((n, a) => n + a.exercises.length, 0);
+  console.log(`Done — ${ateliers.length} atelier(s), ${exCount} exercise(s) written to exercises.json`);
 }
 
 main();

@@ -1,101 +1,189 @@
 {
-  "generatedAt": "2026-06-14T14:49:42.398Z",
-  "exercises": [
+  "generatedAt": "2026-06-14T17:23:56.271Z",
+  "ateliers": [
     {
-      "id": "animals",
-      "title": "Animals",
-      "type": "link",
-      "items": [
+      "id": "atelier-1",
+      "title": "Atelier 1",
+      "tagline": "Meet the family — mum, dad and all of us at home!",
+      "order": 1,
+      "exercises": [
         {
-          "word": "fox",
-          "image": "exercises/animals/fox.svg"
-        },
-        {
-          "word": "frog",
-          "image": "exercises/animals/frog.svg"
-        },
-        {
-          "word": "gorilla",
-          "image": "exercises/animals/gorilla.svg"
-        },
-        {
-          "word": "owl",
-          "image": "exercises/animals/owl.svg"
-        },
-        {
-          "word": "snake",
-          "image": "exercises/animals/snake.svg"
-        },
-        {
-          "word": "wolf",
-          "image": "exercises/animals/wolf.svg"
+          "id": "atelier-1/family",
+          "title": "Family",
+          "type": "tape",
+          "items": [
+            {
+              "word": "brother",
+              "image": "exercises/atelier-1/family/brother.svg"
+            },
+            {
+              "word": "father",
+              "image": "exercises/atelier-1/family/father.svg"
+            },
+            {
+              "word": "grandfather",
+              "image": "exercises/atelier-1/family/grandfather.svg"
+            },
+            {
+              "word": "grandmother",
+              "image": "exercises/atelier-1/family/grandmother.svg"
+            },
+            {
+              "word": "mother",
+              "image": "exercises/atelier-1/family/mother.svg"
+            },
+            {
+              "word": "sister",
+              "image": "exercises/atelier-1/family/sister.svg"
+            }
+          ],
+          "emoji": "👪"
         }
-      ],
-      "emoji": "🦍"
+      ]
     },
     {
-      "id": "fruits",
-      "title": "Fruits",
-      "type": "tape",
-      "items": [
+      "id": "atelier-2",
+      "title": "Atelier 2",
+      "tagline": "Tasty food — match the fruits and the vegetables!",
+      "order": 2,
+      "exercises": [
         {
-          "word": "apple",
-          "image": "exercises/fruits/apple.svg"
+          "id": "atelier-2/fruits",
+          "title": "Fruits",
+          "type": "tape",
+          "items": [
+            {
+              "word": "apple",
+              "image": "exercises/atelier-2/fruits/apple.svg"
+            },
+            {
+              "word": "banana",
+              "image": "exercises/atelier-2/fruits/banana.svg"
+            },
+            {
+              "word": "grapes",
+              "image": "exercises/atelier-2/fruits/grapes.svg"
+            },
+            {
+              "word": "orange",
+              "image": "exercises/atelier-2/fruits/orange.svg"
+            },
+            {
+              "word": "strawberry",
+              "image": "exercises/atelier-2/fruits/strawberry.svg"
+            },
+            {
+              "word": "watermelon",
+              "image": "exercises/atelier-2/fruits/watermelon.svg"
+            }
+          ],
+          "emoji": "🍓"
         },
         {
-          "word": "banana",
-          "image": "exercises/fruits/banana.svg"
-        },
-        {
-          "word": "grapes",
-          "image": "exercises/fruits/grapes.svg"
-        },
-        {
-          "word": "orange",
-          "image": "exercises/fruits/orange.svg"
-        },
-        {
-          "word": "strawberry",
-          "image": "exercises/fruits/strawberry.svg"
-        },
-        {
-          "word": "watermelon",
-          "image": "exercises/fruits/watermelon.svg"
+          "id": "atelier-2/vegetables",
+          "title": "Vegetables",
+          "type": "boxes",
+          "items": [
+            {
+              "word": "broccoli",
+              "image": "exercises/atelier-2/vegetables/broccoli.svg"
+            },
+            {
+              "word": "carrot",
+              "image": "exercises/atelier-2/vegetables/carrot.svg"
+            },
+            {
+              "word": "corn",
+              "image": "exercises/atelier-2/vegetables/corn.svg"
+            },
+            {
+              "word": "onion",
+              "image": "exercises/atelier-2/vegetables/onion.svg"
+            },
+            {
+              "word": "potato",
+              "image": "exercises/atelier-2/vegetables/potato.svg"
+            },
+            {
+              "word": "tomato",
+              "image": "exercises/atelier-2/vegetables/tomato.svg"
+            }
+          ],
+          "emoji": "🥕"
         }
-      ],
-      "emoji": "🍓"
+      ]
     },
     {
-      "id": "vegetables",
-      "title": "Vegetables",
-      "type": "boxes",
-      "items": [
+      "id": "atelier-3",
+      "title": "Atelier 3",
+      "tagline": "Animals everywhere — pets at home and animals in the wild!",
+      "order": 3,
+      "exercises": [
         {
-          "word": "broccoli",
-          "image": "exercises/vegetables/broccoli.svg"
+          "id": "atelier-3/pets",
+          "title": "Pets",
+          "type": "boxes",
+          "items": [
+            {
+              "word": "bird",
+              "image": "exercises/atelier-3/pets/bird.svg"
+            },
+            {
+              "word": "cat",
+              "image": "exercises/atelier-3/pets/cat.svg"
+            },
+            {
+              "word": "dog",
+              "image": "exercises/atelier-3/pets/dog.svg"
+            },
+            {
+              "word": "fish",
+              "image": "exercises/atelier-3/pets/fish.svg"
+            },
+            {
+              "word": "hamster",
+              "image": "exercises/atelier-3/pets/hamster.svg"
+            },
+            {
+              "word": "rabbit",
+              "image": "exercises/atelier-3/pets/rabbit.svg"
+            }
+          ],
+          "emoji": "🐶"
         },
         {
-          "word": "carrot",
-          "image": "exercises/vegetables/carrot.svg"
-        },
-        {
-          "word": "corn",
-          "image": "exercises/vegetables/corn.svg"
-        },
-        {
-          "word": "onion",
-          "image": "exercises/vegetables/onion.svg"
-        },
-        {
-          "word": "potato",
-          "image": "exercises/vegetables/potato.svg"
-        },
-        {
-          "word": "tomato",
-          "image": "exercises/vegetables/tomato.svg"
+          "id": "atelier-3/wild-animals",
+          "title": "Wild animals",
+          "type": "link",
+          "items": [
+            {
+              "word": "fox",
+              "image": "exercises/atelier-3/wild-animals/fox.svg"
+            },
+            {
+              "word": "frog",
+              "image": "exercises/atelier-3/wild-animals/frog.svg"
+            },
+            {
+              "word": "gorilla",
+              "image": "exercises/atelier-3/wild-animals/gorilla.svg"
+            },
+            {
+              "word": "owl",
+              "image": "exercises/atelier-3/wild-animals/owl.svg"
+            },
+            {
+              "word": "snake",
+              "image": "exercises/atelier-3/wild-animals/snake.svg"
+            },
+            {
+              "word": "wolf",
+              "image": "exercises/atelier-3/wild-animals/wolf.svg"
+            }
+          ],
+          "emoji": "🦁"
         }
-      ],
-      "emoji": "🥕"
+      ]
     }
   ]
 }

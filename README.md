@@ -11,18 +11,43 @@ Two game types, chosen per exercise:
 | `boxes` | Drag each **word** into the box under the **right picture**.               |
 | `tape`  | All cards are scattered; drag a **picture and its word together** to tape them into a pair. |
 
-The home screen lists every exercise; tap one to play. Works with **touch** (tablets/phones) and mouse.
+The home screen is organised into **workshops** ("ateliers"); each workshop holds
+one or more exercises. Tap a card to play. Works with **touch** (tablets/phones)
+and mouse.
 
 ---
 
-## ✨ Add a new exercise (the only thing you need to know)
+## 🗂️ How content is organised
 
-1. Create a folder under **`exercises/`**, e.g. `exercises/jobs/`.
+```
+exercises/
+  atelier-1/
+    atelier.json          ← workshop title + tagline
+    family/               ← an exercise
+      game.json
+      mother.svg  father.svg  ...
+  atelier-2/
+    atelier.json
+    fruits/      game.json + images
+    vegetables/  game.json + images
+```
+
+**A workshop** is a folder under `exercises/` containing an `atelier.json`:
+
+```json
+{ "title": "Atelier 1", "tagline": "Meet the family!", "order": 1 }
+```
+- `tagline`: short catchy sentence (simple English) shown under the title.
+- `order` (optional): controls the order of workshops on the home screen.
+
+## ✨ Add a new exercise
+
+1. Inside a workshop folder, create an exercise folder, e.g. `exercises/atelier-1/jobs/`.
 2. Drop in your images. **The file name is the word to guess.**
    - `doctor.jpg` → *doctor*
    - `bus-driver.png` → *bus driver* (dashes/underscores become spaces)
    - Any of `.jpg .jpeg .png .webp .gif .svg` work.
-3. Add a tiny **`game.json`** in that folder:
+3. Add a tiny **`game.json`** in that exercise folder:
 
    ```json
    { "title": "Jobs", "type": "link", "emoji": "👩‍⚕️" }
@@ -33,11 +58,13 @@ The home screen lists every exercise; tap one to play. Works with **touch** (tab
    - `extraWords` (optional, `boxes` only): distractor words that don't match any
      picture, e.g. `"extraWords": ["nurse", "pilot"]`.
 
-4. Commit & push. **That's it** — GitHub Actions rebuilds the index and redeploys.
+4. To add a **new workshop**, just create `exercises/atelier-N/` with an
+   `atelier.json` and one or more exercise sub-folders.
+5. Commit & push. **That's it** — GitHub Actions rebuilds the index and redeploys.
 
-> The two default exercises (`animals`, `vegetables`) use simple SVG emoji cards so
-> the app works out of the box. Replace those files with real photos whenever you
-> like — just keep the filename equal to the word.
+> The sample workshops use simple SVG emoji cards so the app works out of the box.
+> Replace any file with a real photo whenever you like — just keep the filename
+> equal to the word.
 
 ---
 
@@ -73,7 +100,7 @@ No build step is needed for the app itself — it's plain HTML/CSS/JS.
 
 ### Regenerate the sample emoji images
 ```bash
-node scripts/gen-sample-images.mjs   # rewrites the animals/ & vegetables/ SVGs
+node scripts/gen-sample-images.mjs   # rewrites the sample workshops' SVGs
 ```
 
 ---
@@ -84,12 +111,14 @@ node scripts/gen-sample-images.mjs   # rewrites the animals/ & vegetables/ SVGs
 index.html                 app shell
 css/styles.css             theme (Matilda brand) + responsive layout
 js/app.js                  hash router + service-worker registration
-js/home.js                 exercise picker
+js/home.js                 workshop / exercise picker
 js/games/link.js           drag-to-connect game
 js/games/boxes.js          fill-in-the-boxes game
+js/games/tape.js           scattered cards, tape into pairs
 js/drag.js                 touch+mouse drag helper
-js/ui.js                   confetti, win overlay, helpers
-exercises/<name>/          one folder per exercise (images + game.json)
+js/ui.js                   status bar, confetti, win overlay, score storage
+exercises/<atelier>/       a workshop: atelier.json + exercise sub-folders
+exercises/<atelier>/<exercise>/   game.json + images (filename = word)
 exercises.json             GENERATED index (don't edit by hand)
 scripts/build-manifest.mjs scans exercises/ → writes exercises.json
 manifest.webmanifest, sw.js, icons/   PWA bits

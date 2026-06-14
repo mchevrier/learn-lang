@@ -2,10 +2,15 @@
 /**
  * gen-sample-images.mjs
  * ---------------------
- * Generates the lightweight SVG "photo" cards used by the two DEFAULT exercises
- * (animals, vegetables). Each card is a soft gradient rounded square with a big
- * emoji — crisp at any size, tiny, no copyright. Replace these files with real
- * photos whenever you like (keep the filename = the word to guess).
+ * Generates the sample workshops ("ateliers") used out of the box. Each item
+ * image is a lightweight SVG card (soft gradient + a big emoji) named by its
+ * word — crisp at any size, tiny, no copyright. Replace any file with a real
+ * photo whenever you like (keep the filename equal to the word).
+ *
+ * Folder layout it writes:
+ *   exercises/<atelier>/atelier.json          (title + tagline)
+ *   exercises/<atelier>/<exercise>/game.json  (title + type + emoji)
+ *   exercises/<atelier>/<exercise>/<word>.svg
  *
  * Run:  node scripts/gen-sample-images.mjs
  */
@@ -16,16 +21,10 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-// A handful of friendly gradient pairs (top, bottom) to vary the cards.
 const PALETTES = [
-  ['#e9f7ef', '#bfe9d0'],
-  ['#eaf4ff', '#c5e1ff'],
-  ['#fff3e0', '#ffe0b2'],
-  ['#fdeef4', '#fbcfe0'],
-  ['#f3effc', '#ddccf5'],
-  ['#fffbe6', '#ffeeaa'],
-  ['#e6fbfa', '#bdeeeb'],
-  ['#fdeaea', '#f8c9c9'],
+  ['#e9f7ef', '#bfe9d0'], ['#eaf4ff', '#c5e1ff'], ['#fff3e0', '#ffe0b2'],
+  ['#fdeef4', '#fbcfe0'], ['#f3effc', '#ddccf5'], ['#fffbe6', '#ffeeaa'],
+  ['#e6fbfa', '#bdeeeb'], ['#fdeaea', '#f8c9c9'],
 ];
 
 function card(emoji, idx) {
@@ -44,54 +43,60 @@ function card(emoji, idx) {
 `;
 }
 
-const EXERCISES = {
-  animals: {
-    game: { title: 'Animals', type: 'link', emoji: '🦍' },
-    items: {
-      gorilla: '🦍',
-      fox: '🦊',
-      frog: '🐸',
-      wolf: '🐺',
-      owl: '🦉',
-      snake: '🐍',
+const ATELIERS = [
+  {
+    id: 'atelier-1',
+    info: { title: 'Atelier 1', tagline: 'Meet the family — mum, dad and all of us at home!', order: 1 },
+    exercises: {
+      family: {
+        game: { title: 'Family', type: 'tape', emoji: '👪' },
+        items: { mother: '👩', father: '👨', sister: '👧', brother: '👦', grandmother: '👵', grandfather: '👴' },
+      },
     },
   },
-  vegetables: {
-    game: {
-      title: 'Vegetables',
-      type: 'boxes',
-      emoji: '🥕',
-    },
-    items: {
-      carrot: '🥕',
-      tomato: '🍅',
-      broccoli: '🥦',
-      potato: '🥔',
-      corn: '🌽',
-      onion: '🧅',
-    },
-  },
-  fruits: {
-    game: { title: 'Fruits', type: 'tape', emoji: '🍓' },
-    items: {
-      apple: '🍎',
-      banana: '🍌',
-      strawberry: '🍓',
-      grapes: '🍇',
-      orange: '🍊',
-      watermelon: '🍉',
+  {
+    id: 'atelier-2',
+    info: { title: 'Atelier 2', tagline: 'Tasty food — match the fruits and the vegetables!', order: 2 },
+    exercises: {
+      fruits: {
+        game: { title: 'Fruits', type: 'tape', emoji: '🍓' },
+        items: { apple: '🍎', banana: '🍌', strawberry: '🍓', grapes: '🍇', orange: '🍊', watermelon: '🍉' },
+      },
+      vegetables: {
+        game: { title: 'Vegetables', type: 'boxes', emoji: '🥕' },
+        items: { carrot: '🥕', tomato: '🍅', broccoli: '🥦', potato: '🥔', corn: '🌽', onion: '🧅' },
+      },
     },
   },
-};
+  {
+    id: 'atelier-3',
+    info: { title: 'Atelier 3', tagline: 'Animals everywhere — pets at home and animals in the wild!', order: 3 },
+    exercises: {
+      pets: {
+        game: { title: 'Pets', type: 'boxes', emoji: '🐶' },
+        items: { dog: '🐶', cat: '🐱', rabbit: '🐰', hamster: '🐹', fish: '🐠', bird: '🐦' },
+      },
+      'wild-animals': {
+        game: { title: 'Wild animals', type: 'link', emoji: '🦁' },
+        items: { gorilla: '🦍', fox: '🦊', frog: '🐸', wolf: '🐺', owl: '🦉', snake: '🐍' },
+      },
+    },
+  },
+];
 
 let n = 0;
-for (const [id, def] of Object.entries(EXERCISES)) {
-  const dir = join(ROOT, 'exercises', id);
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, 'game.json'), JSON.stringify(def.game, null, 2) + '\n');
-  for (const [word, emoji] of Object.entries(def.items)) {
-    writeFileSync(join(dir, `${word}.svg`), card(emoji, n++));
+for (const atelier of ATELIERS) {
+  const adir = join(ROOT, 'exercises', atelier.id);
+  mkdirSync(adir, { recursive: true });
+  writeFileSync(join(adir, 'atelier.json'), JSON.stringify(atelier.info, null, 2) + '\n');
+  for (const [exId, def] of Object.entries(atelier.exercises)) {
+    const dir = join(adir, exId);
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'game.json'), JSON.stringify(def.game, null, 2) + '\n');
+    for (const [word, emoji] of Object.entries(def.items)) {
+      writeFileSync(join(dir, `${word}.svg`), card(emoji, n++));
+    }
+    console.log(`✓ ${atelier.id}/${exId}: ${Object.keys(def.items).length} images`);
   }
-  console.log(`✓ ${id}: ${Object.keys(def.items).length} images + game.json`);
 }
-console.log('Sample images generated.');
+console.log('Sample workshops generated.');

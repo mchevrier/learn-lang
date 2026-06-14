@@ -98,6 +98,25 @@ body {
   gap: clamp(14px, 3vw, 22px);
 }
 
+/* ---------- Workshops (ateliers) ---------- */
+.atelier {
+  margin: 0 0 clamp(22px, 4vw, 34px);
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(14px, 3vw, 22px);
+}
+.atelier-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 14px;
+  padding-left: 14px;
+  border-left: 6px solid var(--red);
+}
+.atelier-title { margin: 0; font-size: clamp(20px, 5vw, 27px); color: var(--red-dark); }
+.atelier-tagline { margin: 0; color: var(--ink-soft); font-weight: 600; font-style: italic; font-size: clamp(14px, 3.6vw, 16px); }
+
 .exercise-card {
   background: var(--card);
   border: none;
