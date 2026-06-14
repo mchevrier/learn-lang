@@ -2,7 +2,7 @@
 
 import { el } from './ui.js';
 
-const TYPE_LABEL = { link: 'Match', boxes: 'Fill in' };
+const TYPE_LABEL = { link: 'Match', boxes: 'Fill in', tape: 'Pairs' };
 
 export function renderHome(mount, exercises) {
   mount.append(

@@ -71,6 +71,17 @@ const EXERCISES = {
       onion: '🧅',
     },
   },
+  fruits: {
+    game: { title: 'Fruits', type: 'tape', emoji: '🍓' },
+    items: {
+      apple: '🍎',
+      banana: '🍌',
+      strawberry: '🍓',
+      grapes: '🍇',
+      orange: '🍊',
+      watermelon: '🍉',
+    },
+  },
 };
 
 let n = 0;

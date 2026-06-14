@@ -5,10 +5,11 @@ Built as a static, installable web app (PWA) that deploys to **GitHub Pages**.
 
 Two game types, chosen per exercise:
 
-| Type    | What the child does                                              |
-|---------|------------------------------------------------------------------|
-| `link`  | Drag a line from each **picture** to its **word** (scattered).   |
-| `boxes` | Drag each **word** into the box under the **right picture**.     |
+| Type    | What the child does                                                       |
+|---------|---------------------------------------------------------------------------|
+| `link`  | Drag a line from each **picture** to its **word** (two columns).           |
+| `boxes` | Drag each **word** into the box under the **right picture**.               |
+| `tape`  | All cards are scattered; drag a **picture and its word together** to tape them into a pair. |
 
 The home screen lists every exercise; tap one to play. Works with **touch** (tablets/phones) and mouse.
 
@@ -27,7 +28,7 @@ The home screen lists every exercise; tap one to play. Works with **touch** (tab
    { "title": "Jobs", "type": "link", "emoji": "👩‍⚕️" }
    ```
 
-   - `type`: `"link"` or `"boxes"`.
+   - `type`: `"link"`, `"boxes"` or `"tape"`.
    - `emoji` (optional): shown on the home card.
    - `extraWords` (optional, `boxes` only): distractor words that don't match any
      picture, e.g. `"extraWords": ["nurse", "pilot"]`.

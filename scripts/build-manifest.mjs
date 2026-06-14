@@ -25,7 +25,7 @@ const EXERCISES_DIR = join(ROOT, 'exercises');
 const OUTPUT = join(ROOT, 'exercises.json');
 
 const IMAGE_EXT = new Set(['.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif']);
-const VALID_TYPES = new Set(['link', 'boxes']);
+const VALID_TYPES = new Set(['link', 'boxes', 'tape']);
 
 /** Turn a filename into the word to guess: "red-panda.jpg" -> "red panda". */
 function wordFromFilename(file) {
@@ -58,7 +58,7 @@ function buildExercise(id, folder) {
 
   const type = (cfg.type || 'link').toLowerCase();
   if (!VALID_TYPES.has(type)) {
-    console.warn(`  ⚠  skipping "${id}" — unknown type "${cfg.type}" (use "link" or "boxes")`);
+    console.warn(`  ⚠  skipping "${id}" — unknown type "${cfg.type}" (use "link", "boxes" or "tape")`);
     return null;
   }
 

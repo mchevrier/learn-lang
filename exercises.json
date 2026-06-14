@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T14:23:21.632Z",
+  "generatedAt": "2026-06-14T14:49:42.398Z",
   "exercises": [
     {
       "id": "animals",
@@ -32,6 +32,38 @@
         }
       ],
       "emoji": "🦍"
+    },
+    {
+      "id": "fruits",
+      "title": "Fruits",
+      "type": "tape",
+      "items": [
+        {
+          "word": "apple",
+          "image": "exercises/fruits/apple.svg"
+        },
+        {
+          "word": "banana",
+          "image": "exercises/fruits/banana.svg"
+        },
+        {
+          "word": "grapes",
+          "image": "exercises/fruits/grapes.svg"
+        },
+        {
+          "word": "orange",
+          "image": "exercises/fruits/orange.svg"
+        },
+        {
+          "word": "strawberry",
+          "image": "exercises/fruits/strawberry.svg"
+        },
+        {
+          "word": "watermelon",
+          "image": "exercises/fruits/watermelon.svg"
+        }
+      ],
+      "emoji": "🍓"
     },
     {
       "id": "vegetables",
