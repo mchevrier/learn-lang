@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-14T17:27:54.827Z",
+  "generatedAt": "2026-06-14T17:30:17.587Z",
   "ateliers": [
     {
       "id": "atelier-1",
       "title": "Atelier 1",
-      "tagline": "Meet the family — mum, dad and all of us at home!",
+      "tagline": "At home: meet the family and learn your first polite words!",
       "order": 1,
       "exercises": [
         {
@@ -46,6 +46,46 @@
             }
           ],
           "emoji": "👪"
+        },
+        {
+          "id": "atelier-1/greetings",
+          "title": "Greetings",
+          "type": "link",
+          "items": [
+            {
+              "word": "good night",
+              "image": "exercises/atelier-1/greetings/good night.svg"
+            },
+            {
+              "word": "goodbye",
+              "image": "exercises/atelier-1/greetings/goodbye.svg"
+            },
+            {
+              "word": "hello",
+              "image": "exercises/atelier-1/greetings/hello.svg"
+            },
+            {
+              "word": "no",
+              "image": "exercises/atelier-1/greetings/no.svg"
+            },
+            {
+              "word": "please",
+              "image": "exercises/atelier-1/greetings/please.svg"
+            },
+            {
+              "word": "sorry",
+              "image": "exercises/atelier-1/greetings/sorry.svg"
+            },
+            {
+              "word": "thank you",
+              "image": "exercises/atelier-1/greetings/thank you.svg"
+            },
+            {
+              "word": "yes",
+              "image": "exercises/atelier-1/greetings/yes.svg"
+            }
+          ],
+          "emoji": "👋"
         }
       ]
     },

@@ -49,11 +49,24 @@ function card(emoji, idx) {
 const ATELIERS = [
   {
     id: 'atelier-1',
-    info: { title: 'Atelier 1', tagline: 'Meet the family — mum, dad and all of us at home!', order: 1 },
+    info: { title: 'Atelier 1', tagline: 'At home: meet the family and learn your first polite words!', order: 1 },
     exercises: {
       family: {
         game: { title: 'Family', type: 'tape', emoji: '👪' },
         items: { mother: '👩', father: '👨', sister: '👧', brother: '👦', grandmother: '👵', grandfather: '👴', baby: '👶', grandparents: '👵👴' },
+      },
+      greetings: {
+        game: { title: 'Greetings', type: 'link', emoji: '👋' },
+        items: {
+          hello: '👋',
+          goodbye: '🚶',
+          please: '🥺',
+          'thank you': '🙏',
+          sorry: '😔',
+          yes: '👍',
+          no: '👎',
+          'good night': '🌙',
+        },
       },
     },
   },
