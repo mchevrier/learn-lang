@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T17:23:56.271Z",
+  "generatedAt": "2026-06-14T17:27:54.827Z",
   "ateliers": [
     {
       "id": "atelier-1",
@@ -12,6 +12,10 @@
           "title": "Family",
           "type": "tape",
           "items": [
+            {
+              "word": "baby",
+              "image": "exercises/atelier-1/family/baby.svg"
+            },
             {
               "word": "brother",
               "image": "exercises/atelier-1/family/brother.svg"
@@ -27,6 +31,10 @@
             {
               "word": "grandmother",
               "image": "exercises/atelier-1/family/grandmother.svg"
+            },
+            {
+              "word": "grandparents",
+              "image": "exercises/atelier-1/family/grandparents.svg"
             },
             {
               "word": "mother",

@@ -30,6 +30,9 @@ const PALETTES = [
 function card(emoji, idx) {
   const [a, b] = PALETTES[idx % PALETTES.length];
   const gid = `g${idx}`;
+  // shrink the glyph when the "emoji" is actually several emojis (e.g. 👵👴)
+  const glyphs = [...emoji].filter((c) => c.codePointAt(0) > 0x2000).length || 1;
+  const fontSize = glyphs > 1 ? 150 : 220;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
   <defs>
     <linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
@@ -38,7 +41,7 @@ function card(emoji, idx) {
     </linearGradient>
   </defs>
   <rect x="0" y="0" width="400" height="400" rx="40" fill="url(#${gid})"/>
-  <text x="200" y="215" font-size="220" text-anchor="middle" dominant-baseline="central">${emoji}</text>
+  <text x="200" y="215" font-size="${fontSize}" text-anchor="middle" dominant-baseline="central">${emoji}</text>
 </svg>
 `;
 }
@@ -50,7 +53,7 @@ const ATELIERS = [
     exercises: {
       family: {
         game: { title: 'Family', type: 'tape', emoji: '👪' },
-        items: { mother: '👩', father: '👨', sister: '👧', brother: '👦', grandmother: '👵', grandfather: '👴' },
+        items: { mother: '👩', father: '👨', sister: '👧', brother: '👦', grandmother: '👵', grandfather: '👴', baby: '👶', grandparents: '👵👴' },
       },
     },
   },
