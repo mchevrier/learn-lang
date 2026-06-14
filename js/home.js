@@ -34,10 +34,17 @@ export function renderHome(mount, exercises) {
       el('div', { class: `badge ${ex.type}`, text: TYPE_LABEL[ex.type] || ex.type }),
       el('div', { class: 'count', text: `${ex.items.length} words` }),
     ]);
-    // "Sans faute" star when the exercise was once completed with zero mistakes
-    if (getBestMistakes(ex.id) === 0) {
-      card.append(el('span', { class: 'perfect', text: '⭐ Sans faute' }));
+    // status pictogram: not done yet / done with N mistakes / flawless medal
+    const best = getBestMistakes(ex.id);
+    let statusEl;
+    if (best == null) {
+      statusEl = el('span', { class: 'status todo', text: '📝 À faire' });
+    } else if (best === 0) {
+      statusEl = el('span', { class: 'status perfect', text: '🥇 Sans faute' });
+    } else {
+      statusEl = el('span', { class: 'status done', text: `✓ ${best} faute${best > 1 ? 's' : ''}` });
     }
+    card.append(statusEl);
     grid.append(card);
   }
   mount.append(grid);

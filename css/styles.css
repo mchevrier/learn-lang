@@ -135,14 +135,20 @@ body {
 .exercise-card .badge.boxes { background: var(--navy); }
 .exercise-card .badge.tape { background: var(--navy-light); }
 .exercise-card .count { font-size: 13px; color: var(--ink-soft); font-weight: 700; }
-.exercise-card .perfect {
+.exercise-card .status {
   position: absolute;
   top: 14px; right: 10px;
-  background: var(--gold); color: #6b4e00;
   font-weight: 800; font-size: 11px; letter-spacing: .02em;
   padding: 4px 9px; border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.18);
+  box-shadow: 0 2px 6px rgba(0,0,0,.16);
   white-space: nowrap;
+}
+.exercise-card .status.todo    { background: #efe7dc; color: var(--ink-soft); }
+.exercise-card .status.done    { background: var(--navy); color: #fff; }
+.exercise-card .status.perfect {
+  background: linear-gradient(180deg, #ffe07a, var(--gold));
+  color: #6b4e00;
+  box-shadow: 0 2px 8px rgba(190,140,0,.45);
 }
 
 /* ---------- Game shared ---------- */
